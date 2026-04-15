@@ -70,10 +70,10 @@ export function AlumniListTemplate({
             </div>
             <h1 className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-2.5">
               <span className="bg-gradient-to-br from-violet-600 to-fuchsia-600 bg-clip-text text-2xl font-extrabold tracking-tight text-transparent md:text-3xl dark:from-violet-400 dark:to-fuchsia-400">
-                神デ・リンク
+                We部ナレッジベース
               </span>
               <span className="text-sm font-bold tracking-wider text-stone-500 dark:text-stone-400 sm:mb-0.5">
-                (Shin-De Link)
+                (ver.就活)
               </span>
             </h1>
             <p className="mt-1.5 text-[13px] font-medium text-stone-500 dark:text-stone-400">
@@ -111,7 +111,9 @@ export function AlumniListTemplate({
         {initialGraduationYear ? (
           <Badge variant="default">卒業年度: {initialGraduationYear}</Badge>
         ) : null}
-        {initialCompany ? <Badge variant="default">企業: {initialCompany}</Badge> : null}
+        {initialCompany ? (
+          <Badge variant="default">企業: {initialCompany}</Badge>
+        ) : null}
         <Link
           href="/account"
           className="ml-auto inline-flex h-8 items-center rounded-lg border border-violet-200/80 bg-violet-50/80 px-3 text-xs font-semibold text-violet-700 transition hover:bg-violet-100/80 dark:border-violet-700/60 dark:bg-violet-900/30 dark:text-violet-200 dark:hover:bg-violet-900/50"
@@ -155,7 +157,9 @@ export function AlumniListTemplate({
           )}
 
           <span className="px-3 text-[13px] tabular-nums text-stone-600 dark:text-stone-400">
-            <span className="font-semibold text-stone-900 dark:text-stone-200">{currentPage}</span>
+            <span className="font-semibold text-stone-900 dark:text-stone-200">
+              {currentPage}
+            </span>
             <span className="mx-1 text-stone-300 dark:text-stone-600">/</span>
             <span>{totalPages}</span>
           </span>
