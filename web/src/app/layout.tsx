@@ -14,8 +14,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Webu Portal",
-  description: "神戸電子 OB/OG ポータル",
+  title: "We部 | ナレッジベース ver.就活",
+  description:
+    "先輩がどんな企業に内定をもらい、どんなスキルやガクチカを活かしたのか？",
+  icons: {
+    icon: [
+      {
+        url: "/webclub.png",
+        sizes: "any",
+      },
+    ],
+    apple: "/webclub.png",
+  },
 };
 
 export default function RootLayout({
@@ -25,7 +35,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         {children}
         <Toaster />
       </body>
