@@ -15,11 +15,7 @@ function LoginPageFallback() {
   return (
     <LoginPageContent
       loginButton={
-        <Button
-          type="button"
-          className="mt-6 h-12 w-full bg-zinc-950 text-base text-white hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:bg-zinc-200"
-          disabled
-        >
+        <Button type="button" className="mt-7 h-12 w-full text-base" disabled>
           <LoginButtonContent />
         </Button>
       }

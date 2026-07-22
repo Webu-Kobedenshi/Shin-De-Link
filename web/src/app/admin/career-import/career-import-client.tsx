@@ -132,15 +132,15 @@ export function CareerImportClient() {
   }
 
   return (
-    <main className="min-h-screen bg-stone-50 px-4 py-8 text-stone-900 dark:bg-stone-950 dark:text-stone-50">
+    <main className="app-page min-h-screen px-4 py-8 text-stone-900 dark:text-stone-50">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
         <header className="flex flex-col gap-2">
-          <p className="text-sm font-medium text-violet-600 dark:text-violet-300">Admin</p>
-          <h1 className="text-3xl font-bold">就活情報 Excel アップロード</h1>
+          <p className="app-eyebrow">ADMIN</p>
+          <h1 className="app-display-title text-3xl">就活情報 Excel アップロード</h1>
         </header>
 
         <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
-          <Card className="rounded-lg border border-stone-200 bg-white shadow-sm dark:border-stone-800 dark:bg-stone-900">
+          <Card className="rounded-[1.75rem]">
             <div className="flex flex-col gap-4">
               <label className="flex flex-col gap-2 text-sm font-medium">
                 Excel ファイル
@@ -153,7 +153,7 @@ export function CareerImportClient() {
                     setResult(null);
                     setMessage("");
                   }}
-                  className="h-11 rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm file:mr-4 file:rounded-md file:border-0 file:bg-stone-100 file:px-3 file:py-1.5 file:text-sm file:font-medium hover:border-stone-300 dark:border-stone-700 dark:bg-stone-950 dark:file:bg-stone-800"
+                  className="h-12 rounded-2xl border border-stone-900/[0.08] bg-white/72 px-3 py-2 text-sm file:mr-4 file:rounded-full file:border-0 file:bg-violet-100 file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-violet-700 hover:border-stone-900/[0.14] dark:border-stone-700 dark:bg-stone-950 dark:file:bg-stone-800"
                 />
               </label>
 
@@ -184,7 +184,7 @@ export function CareerImportClient() {
             </div>
           </Card>
 
-          <Card className="rounded-lg border border-stone-200 bg-white shadow-sm dark:border-stone-800 dark:bg-stone-900">
+          <Card className="rounded-[1.75rem]">
             <dl className="grid grid-cols-2 gap-3 text-sm">
               <SummaryItem label="総行数" value={preview?.totalCount ?? 0} />
               <SummaryItem label="反映対象" value={preview?.validCount ?? 0} />
@@ -196,7 +196,7 @@ export function CareerImportClient() {
         </section>
 
         {preview ? (
-          <section className="overflow-hidden rounded-lg border border-stone-200 bg-white shadow-sm dark:border-stone-800 dark:bg-stone-900">
+          <section className="liquid-glass-strong overflow-hidden rounded-[1.75rem] dark:border-stone-800 dark:bg-stone-900">
             <div className="overflow-x-auto">
               <table className="min-w-full border-collapse text-left text-sm">
                 <thead className="bg-stone-100 text-xs uppercase tracking-wide text-stone-500 dark:bg-stone-800 dark:text-stone-400">
@@ -245,7 +245,7 @@ export function CareerImportClient() {
 
 function SummaryItem({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-lg border border-stone-100 bg-stone-50 p-3 dark:border-stone-800 dark:bg-stone-950">
+    <div className="rounded-2xl border border-white/80 bg-white/60 p-3 shadow-sm dark:border-stone-800 dark:bg-stone-950">
       <dt className="text-xs text-stone-500">{label}</dt>
       <dd className="mt-1 text-2xl font-semibold">{value}</dd>
     </div>

@@ -1025,7 +1025,7 @@ export function AccountProfileForm({
       ) : null}
 
       {showAvatarField ? (
-        <Card className="gap-0 border-stone-200/90 bg-white p-4 shadow-[0_8px_24px_-18px_rgba(0,0,0,0.25)] sm:p-5 dark:border-stone-800/80 dark:bg-stone-900/40">
+        <Card className="solid-surface gap-0 p-4 sm:p-5 dark:border-stone-800/80 dark:bg-stone-900/80">
           <div className="space-y-3">
             <span className="text-[11px] font-semibold text-stone-500 dark:text-stone-400">
               プロフィール画像
@@ -1124,7 +1124,7 @@ export function AccountProfileForm({
       {showPublicProfileFields ? (
         <>
           {/* ─── Section 3: 公開プロフィール設定 (Progressive Disclosure) ─── */}
-          <Card className="gap-0 overflow-hidden border-stone-200/90 bg-white p-0 shadow-[0_8px_24px_-18px_rgba(0,0,0,0.25)] dark:border-stone-800/80 dark:bg-stone-900/40">
+          <Card className="solid-surface gap-0 overflow-hidden p-0 dark:border-stone-800/80 dark:bg-stone-900/80">
             {/* Header Area with Toggle */}
             <div className="flex flex-col gap-4 border-b border-stone-100 bg-stone-50/50 p-4 dark:border-stone-800/60 dark:bg-stone-900/20 sm:flex-row sm:items-center sm:justify-between sm:p-5">
               <div className="flex items-start gap-3 sm:items-center">

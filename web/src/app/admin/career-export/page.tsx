@@ -13,14 +13,14 @@ export default async function CareerExportPage() {
   }
 
   return (
-    <main className="min-h-screen bg-stone-50 px-4 py-8 text-stone-900 dark:bg-stone-950 dark:text-stone-50">
+    <main className="app-page min-h-screen px-4 py-8 text-stone-900 dark:text-stone-50">
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-6">
         <header className="flex flex-col gap-2">
-          <p className="text-sm font-medium text-violet-600 dark:text-violet-300">Admin</p>
-          <h1 className="text-3xl font-bold">就活情報 Excel 出力</h1>
+          <p className="app-eyebrow">ADMIN</p>
+          <h1 className="app-display-title text-3xl">就活情報 Excel 出力</h1>
         </header>
 
-        <Card className="rounded-lg border border-stone-200 bg-white shadow-sm dark:border-stone-800 dark:bg-stone-900">
+        <Card className="rounded-[1.75rem]">
           <div className="flex flex-col gap-5">
             <div className="space-y-2">
               <h2 className="text-lg font-semibold">出力内容</h2>

@@ -24,7 +24,7 @@ type AlumniListTemplateProps = {
 };
 
 const publishButtonClassName =
-  "metallic-publish-button inline-flex h-10 w-full items-center justify-center px-4 text-xs font-bold transition-all duration-200 active:scale-[0.98] sm:ml-auto sm:h-9 sm:w-auto sm:min-w-[10.75rem]";
+  "metallic-publish-button inline-flex h-11 w-full items-center justify-center px-5 text-xs font-bold sm:ml-auto sm:w-auto sm:min-w-[10.75rem]";
 
 type PodiumRank = 1 | 2 | 3;
 
@@ -121,27 +121,25 @@ export function AlumniListTemplateFrame({
   children,
 }: AlumniListTemplateFrameProps) {
   return (
-    <main className="mx-auto min-h-screen w-full max-w-[1400px] px-3 py-4 sm:px-4 sm:py-6 md:px-8 md:py-8">
-      <header className="liquid-glass-strong rounded-2xl p-4 md:p-6">
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            <div className="mb-2 flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500" />
-              <p className="text-[11px] font-semibold tracking-[0.12em] text-violet-600 dark:text-violet-400">
-                We部運営
+    <main className="app-page mx-auto min-h-screen w-full max-w-[1400px] px-3 py-3 sm:px-4 sm:py-5 md:px-8 md:py-7">
+      <header className="liquid-glass-strong rounded-[2rem] p-4 sm:p-5 md:p-6">
+        <div className="flex items-center justify-between gap-5">
+          <div className="flex min-w-0 items-center gap-3.5 sm:gap-4">
+            <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 text-base font-bold text-white shadow-md shadow-violet-600/20 ring-1 ring-white/60 sm:size-12">
+              W
+            </div>
+            <div className="min-w-0">
+              <p className="app-eyebrow mb-1">WE CLUB · CAREER KNOWLEDGE</p>
+              <h1 className="app-display-title flex flex-col gap-0.5 text-[1.4rem] text-stone-950 sm:flex-row sm:items-baseline sm:gap-2 md:text-[1.7rem] dark:text-stone-100">
+                <span>We部ナレッジベース</span>
+                <span className="text-xs font-semibold tracking-[0.06em] text-stone-400 sm:text-[13px]">
+                  ver.就活
+                </span>
+              </h1>
+              <p className="mt-1 hidden text-[12px] font-medium leading-relaxed text-stone-500 sm:block dark:text-stone-400">
+                先輩のリアルな経験から、次の一歩を見つけよう。
               </p>
             </div>
-            <h1 className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-2.5">
-              <span className="bg-gradient-to-br from-violet-600 to-fuchsia-600 bg-clip-text text-2xl font-extrabold tracking-tight text-transparent md:text-3xl dark:from-violet-400 dark:to-fuchsia-400">
-                We部ナレッジベース
-              </span>
-              <span className="text-sm font-bold tracking-wider text-stone-500 dark:text-stone-400 sm:mb-0.5">
-                (ver.就活)
-              </span>
-            </h1>
-            <p className="mt-1.5 text-[13px] font-medium leading-relaxed text-stone-500 dark:text-stone-400">
-              あの企業に就職した先輩に話が聞けるかも！？
-            </p>
           </div>
           <div className="hidden lg:block">
             <AccountBadge account={account} />
@@ -149,7 +147,7 @@ export function AlumniListTemplateFrame({
         </div>
         <Link
           href="/account"
-          className="mt-4 flex items-center justify-between rounded-xl border border-stone-200/80 bg-white/70 px-3 py-2 text-left shadow-sm transition-colors hover:bg-violet-50/60 dark:border-stone-700/60 dark:bg-stone-900/50 dark:hover:bg-violet-900/20 lg:hidden"
+          className="mt-4 flex min-h-11 items-center justify-between rounded-2xl border border-white/80 bg-white/58 px-3 py-2 text-left shadow-sm backdrop-blur-xl transition-[background-color,transform] duration-150 hover:bg-white/82 active:scale-[0.98] dark:border-white/10 dark:bg-stone-900/50 dark:hover:bg-stone-800/70 lg:hidden"
           aria-label="マイページへ移動"
         >
           <span className="flex min-w-0 items-center gap-2.5">
@@ -182,7 +180,7 @@ export function AlumniListTemplateFrame({
         </Link>
       </header>
 
-      <section className="mt-4">
+      <section className="mt-3 sm:mt-4">
         <SearchField
           initialDepartment={initialDepartment}
           initialCompany={initialCompany}
@@ -238,9 +236,9 @@ export function AlumniListResults({
   const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
   const hasLastPage = currentPage < totalPages;
   const paginationButtonClassName =
-    "inline-flex h-9 w-9 items-center justify-center rounded-xl border border-stone-200/80 bg-white/80 text-stone-600 transition-all hover:bg-stone-50 hover:text-stone-900 active:scale-95 dark:border-stone-700/60 dark:bg-stone-900/60 dark:text-stone-400 dark:hover:bg-stone-800/80 dark:hover:text-stone-200";
+    "inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/90 bg-white/72 text-stone-600 shadow-sm backdrop-blur-xl transition-[background-color,color,box-shadow,transform] duration-150 hover:bg-white hover:text-stone-900 hover:shadow-md active:scale-[0.96] dark:border-white/10 dark:bg-stone-900/60 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-200";
   const paginationDisabledClassName =
-    "inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-stone-200/50 text-stone-300 dark:border-stone-800/50 dark:text-stone-700";
+    "inline-flex h-11 w-11 cursor-not-allowed items-center justify-center rounded-full border border-stone-200/50 bg-white/30 text-stone-300 dark:border-stone-800/50 dark:text-stone-700";
 
   const buildPageHref = (page: number) => {
     const query = new URLSearchParams();

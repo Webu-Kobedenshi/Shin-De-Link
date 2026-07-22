@@ -36,7 +36,7 @@ export function AccountActions() {
   };
 
   return (
-    <Card className="gap-0 border-stone-200/90 bg-white shadow-[0_8px_24px_-18px_rgba(0,0,0,0.25)] dark:border-stone-800/80 dark:bg-stone-900/40">
+    <Card className="solid-surface gap-0 dark:border-stone-800/80 dark:bg-stone-900/80">
       <div className="flex items-center gap-2">
         <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-stone-200 text-sm dark:bg-stone-700">
           <SettingsIcon

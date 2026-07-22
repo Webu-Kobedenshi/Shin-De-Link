@@ -16,10 +16,10 @@ export function ErrorPageShell({
   details,
 }: ErrorPageShellProps) {
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-3xl items-center px-4 py-10 md:px-6">
-      <section className="liquid-glass-strong w-full overflow-hidden rounded-2xl p-6 md:p-8">
+    <main className="app-page mx-auto flex min-h-screen w-full max-w-3xl items-center px-4 py-10 md:px-6">
+      <section className="liquid-glass-strong w-full overflow-hidden rounded-[2rem] p-6 md:p-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-600 to-fuchsia-500 text-sm font-extrabold text-white shadow-sm">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 text-sm font-extrabold text-white shadow-md shadow-violet-600/20">
             {code}
           </div>
           <div className="min-w-0 flex-1">

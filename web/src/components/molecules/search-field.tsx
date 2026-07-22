@@ -175,11 +175,11 @@ export function SearchField({
 
   return (
     <form
-      className="liquid-glass relative z-50 rounded-2xl p-4"
+      className="liquid-glass relative z-50 rounded-[1.75rem] p-3 sm:p-4"
       onSubmit={(event) => event.preventDefault()}
     >
       <div className="flex items-center justify-between gap-2 md:hidden">
-        <p className="text-[12px] font-semibold text-stone-600 dark:text-stone-300">
+        <p className="text-[12px] font-bold text-stone-700 dark:text-stone-300">
           絞り込み
           <span className="ml-1 tabular-nums text-stone-400 dark:text-stone-500">
             {activeFilterCount > 0 ? `(${activeFilterCount})` : ""}
@@ -309,14 +309,14 @@ export function SearchField({
           {isCompanySuggestionsOpen && companyInput.trim().length > 0 ? (
             <div
               id="company-suggestion-list"
-              className="absolute top-full right-0 left-0 z-[60] mt-2 overflow-hidden rounded-xl border border-stone-200/80 bg-white shadow-lg shadow-stone-900/10 dark:border-stone-700 dark:bg-stone-900"
+              className="liquid-glass-strong absolute top-full right-0 left-0 z-[60] mt-2 overflow-hidden rounded-2xl dark:border-stone-700 dark:bg-stone-900"
             >
               {companySuggestions.length > 0 ? (
                 companySuggestions.map((suggestion) => (
                   <button
                     key={suggestion}
                     type="button"
-                    className="block w-full px-3.5 py-2.5 text-left text-sm text-stone-800 transition-colors hover:bg-violet-50 focus:bg-violet-50 focus:outline-none dark:text-stone-100 dark:hover:bg-violet-950/40 dark:focus:bg-violet-950/40"
+                    className="block min-h-11 w-full px-3.5 py-2.5 text-left text-sm text-stone-800 transition-colors hover:bg-violet-50/80 focus:bg-violet-50/80 focus:outline-none dark:text-stone-100 dark:hover:bg-violet-950/40 dark:focus:bg-violet-950/40"
                     onMouseDown={(event) => event.preventDefault()}
                     onClick={() => handleCompanySuggestionSelect(suggestion)}
                   >

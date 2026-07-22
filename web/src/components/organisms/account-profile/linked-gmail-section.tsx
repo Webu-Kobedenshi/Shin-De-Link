@@ -22,7 +22,7 @@ export function LinkedGmailSection({
   const isLinked = Boolean(currentLinkedGmail);
 
   return (
-    <Card className="gap-0 border-stone-200/90 bg-white shadow-[0_8px_24px_-18px_rgba(0,0,0,0.25)] dark:border-stone-800/80 dark:bg-stone-900/40">
+    <Card className="solid-surface gap-0 dark:border-stone-800/80 dark:bg-stone-900/80">
       <Button
         type="button"
         onClick={onToggleLoginInfoOpen}
@@ -120,7 +120,7 @@ export function LinkedGmailSection({
                   onClick={onLinkGmail}
                   disabled={isLinkingGmail}
                   variant="secondary"
-                  className="mt-4 h-11 w-full justify-center gap-2 rounded-xl bg-neutral-900 px-4 text-xs font-bold text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-100 disabled:opacity-50"
+                  className="mt-4 h-11 w-full justify-center gap-2 px-4 text-xs font-bold disabled:opacity-50"
                 >
                   {isLinkingGmail ? "Google確認へ移動中…" : "Gmailを登録する"}
                   {!isLinkingGmail ? <ArrowRightIcon size={14} /> : null}

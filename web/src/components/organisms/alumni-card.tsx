@@ -77,18 +77,21 @@ export function AlumniCard({ alumni, returnTo, highlightHelpful = false }: Alumn
     alumni.companyExperiences.find((company) => company.companyName === companyName);
 
   return (
-    <article className="alumni-card group relative isolate flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] sm:rounded-3xl dark:border-stone-800 dark:bg-stone-950 dark:hover:shadow-[0_20px_60px_-12px_rgba(0,0,0,0.5)]">
+    <article className="alumni-card group relative isolate flex h-full min-w-0 flex-col overflow-hidden rounded-[1.6rem] border border-white/90 bg-white/82 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_10px_32px_rgba(49,46,129,0.07)] backdrop-blur-xl transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-0.5 hover:border-white hover:shadow-[0_2px_4px_rgba(15,23,42,0.05),0_18px_48px_rgba(49,46,129,0.11)] active:scale-[0.995] dark:border-white/10 dark:bg-stone-950/82 dark:hover:shadow-[0_20px_60px_-12px_rgba(0,0,0,0.5)]">
       {/* ── Hero zone ── */}
-      <div className="relative h-24 overflow-hidden">
+      <div className="relative h-20 overflow-hidden">
         {/* Gradient background — always present */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-90`} />
+        <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-80`} />
         {/* Decorative light effects */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(255,255,255,0.35),transparent_55%),radial-gradient(circle_at_85%_30%,rgba(255,255,255,0.2),transparent_45%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_25%,rgba(255,255,255,0.38),transparent_50%),linear-gradient(to_bottom,rgba(255,255,255,0.08),transparent)]"
         />
         {/* Floating confetti dots */}
-        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 overflow-hidden opacity-40"
+        >
           <span className="absolute left-[12%] top-[18%] h-1.5 w-1.5 rounded-full bg-white/60 blur-[0.5px]" />
           <span className="absolute left-[30%] top-[65%] h-1 w-1 rounded-full bg-white/50" />
           <span className="absolute left-[55%] top-[22%] h-2 w-2 rounded-full bg-white/30 blur-[1px]" />
@@ -96,28 +99,28 @@ export function AlumniCard({ alumni, returnTo, highlightHelpful = false }: Alumn
           <span className="absolute left-[88%] top-[25%] h-1.5 w-1.5 rounded-full bg-white/40 blur-[0.5px]" />
         </div>
         {/* Celebration badge — floats in hero zone */}
-        <span className="absolute left-3 top-3 inline-flex max-w-[48%] items-center gap-1 truncate rounded-full bg-white/90 px-2.5 py-0.5 text-[10px] font-bold tracking-wide text-amber-700 shadow-sm backdrop-blur-md dark:bg-black/50 dark:text-amber-200">
+        <span className="absolute left-3 top-3 inline-flex max-w-[48%] items-center gap-1 truncate rounded-full bg-white/82 px-2.5 py-1 text-[10px] font-bold tracking-wide text-amber-700 shadow-sm ring-1 ring-white/70 backdrop-blur-xl dark:bg-black/50 dark:text-amber-200">
           🎉 内定おめでとう！
         </span>
         {/* Department tag */}
-        <span className="absolute right-3 top-3 max-w-[46%] truncate rounded-full bg-black/25 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-md">
+        <span className="absolute right-3 top-3 max-w-[46%] truncate rounded-full bg-black/18 px-2.5 py-1 text-[10px] font-semibold text-white ring-1 ring-white/14 backdrop-blur-xl">
           {departmentLabel[alumni.department]}
         </span>
       </div>
 
       {/* ── Avatar row (overlapping hero/body) ── */}
-      <div className="relative z-10 -mt-8 flex min-h-[4.75rem] items-start justify-between gap-2 px-3 sm:gap-3 sm:px-4">
+      <div className="relative z-10 -mt-7 flex min-h-[4.6rem] items-start justify-between gap-2 px-3.5 sm:gap-3 sm:px-4">
         {/* Avatar */}
         <div className="relative inline-block">
           {alumni.avatarUrl ? (
             <img
               src={alumni.avatarUrl}
               alt={`${displayName}のプロフィール画像`}
-              className="h-16 w-16 rounded-xl border-[3px] border-white object-cover shadow-lg transition-transform duration-300 group-hover:scale-105 dark:border-stone-900"
+              className="h-16 w-16 rounded-2xl border-[3px] border-white object-cover shadow-lg dark:border-stone-900"
             />
           ) : (
             <div
-              className={`flex h-16 w-16 items-center justify-center rounded-xl border-[3px] border-white bg-gradient-to-br ${gradient} text-xl font-extrabold text-white shadow-lg dark:border-stone-900`}
+              className={`flex h-16 w-16 items-center justify-center rounded-2xl border-[3px] border-white bg-gradient-to-br ${gradient} text-xl font-extrabold text-white shadow-lg dark:border-stone-900`}
             >
               {initial}
             </div>
@@ -140,7 +143,7 @@ export function AlumniCard({ alumni, returnTo, highlightHelpful = false }: Alumn
                   <span
                     key={skill}
                     title={skill}
-                    className="min-w-0 max-w-16 shrink truncate rounded-md bg-violet-100/80 px-1.5 py-0.5 text-[10px] font-semibold text-violet-700 sm:max-w-20 dark:bg-violet-900/30 dark:text-violet-300"
+                    className="min-w-0 max-w-16 shrink truncate rounded-full bg-violet-100/75 px-2 py-0.5 text-[10px] font-semibold text-violet-700 sm:max-w-20 dark:bg-violet-900/30 dark:text-violet-300"
                   >
                     {skill}
                   </span>
@@ -152,10 +155,10 @@ export function AlumniCard({ alumni, returnTo, highlightHelpful = false }: Alumn
       </div>
 
       {/* ── Body ── */}
-      <div className="relative flex flex-1 flex-col px-3 pb-3 pt-2 sm:px-4">
+      <div className="relative flex flex-1 flex-col px-3.5 pb-3.5 pt-2 sm:px-4">
         {/* Name + year */}
         <div className="flex items-baseline gap-2">
-          <h3 className="truncate text-[15px] font-bold text-stone-900 dark:text-stone-100">
+          <h3 className="truncate text-[15px] font-semibold text-stone-900 dark:text-stone-100">
             {displayName}
           </h3>
           <span className="shrink-0 text-[11px] font-medium text-stone-400 dark:text-stone-500">
@@ -173,7 +176,7 @@ export function AlumniCard({ alumni, returnTo, highlightHelpful = false }: Alumn
             href={createCompanyDetailHref(getCompanyExperience(primaryCompany, 0)?.id)}
             className={`line-clamp-2 break-words font-extrabold leading-tight tracking-tight text-stone-900 transition-colors [overflow-wrap:anywhere] hover:text-violet-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 dark:text-stone-100 dark:hover:text-violet-300 dark:focus-visible:ring-offset-stone-950 ${
               otherCompanies.length === 0
-                ? "text-[22px] sm:text-[26px]"
+                ? "text-[21px] sm:text-[23px]"
                 : "text-[18px] sm:text-[20px]"
             }`}
             aria-label={`${primaryCompany}の詳細を見る`}

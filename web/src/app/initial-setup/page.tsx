@@ -12,9 +12,12 @@ export default async function InitialSetupPage() {
 
   if (profile?.role === "ADMIN") {
     return (
-      <main className="mx-auto min-h-screen w-full max-w-3xl px-6 py-10">
-        <section className="liquid-glass w-full rounded-2xl p-6">
-          <h1 className="text-xl font-bold text-stone-900 dark:text-stone-100">初期設定</h1>
+      <main className="app-page mx-auto min-h-screen w-full max-w-3xl px-3 py-4 sm:px-6 sm:py-8">
+        <section className="liquid-glass-strong w-full rounded-[2rem] p-5 sm:p-7">
+          <p className="app-eyebrow">GETTING STARTED</p>
+          <h1 className="app-display-title mt-2 text-2xl text-stone-900 dark:text-stone-100">
+            初期設定
+          </h1>
           <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">
             管理者アカウントで表示する名前を入力してください。
           </p>
@@ -41,9 +44,12 @@ export default async function InitialSetupPage() {
   }
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-3xl px-6 py-10">
-      <section className="liquid-glass w-full rounded-2xl p-6">
-        <h1 className="text-xl font-bold text-stone-900 dark:text-stone-100">初期設定</h1>
+    <main className="app-page mx-auto min-h-screen w-full max-w-3xl px-3 py-4 sm:px-6 sm:py-8">
+      <section className="liquid-glass-strong w-full rounded-[2rem] p-5 sm:p-7">
+        <p className="app-eyebrow">GETTING STARTED</p>
+        <h1 className="app-display-title mt-2 text-2xl text-stone-900 dark:text-stone-100">
+          初期設定
+        </h1>
         <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">
           最初に必要なプロフィール情報（名前・学籍番号・入学年度・年制・学科）を入力してください。
         </p>

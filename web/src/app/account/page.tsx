@@ -43,17 +43,14 @@ export default async function AccountPage({ searchParams }: AccountPageProps) {
   const avatarUrl = profile?.alumniProfile?.avatarUrl ?? null;
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-2xl px-3 py-4 sm:px-4 sm:py-6 md:px-6 md:py-10">
+    <main className="app-page mx-auto min-h-screen w-full max-w-2xl px-3 py-3 sm:px-4 sm:py-5 md:px-6 md:py-8">
       <ToastOnMount
         variant={gmailLinkStatus === "success" ? "success" : "error"}
         message={gmailLinkMessage}
       />
       {/* ── Navigation ── */}
-      <nav className="mb-4 sm:mb-6">
-        <Link
-          href="/"
-          className="group inline-flex items-center gap-1.5 text-[13px] font-medium text-stone-500 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
-        >
+      <nav className="mb-2 sm:mb-3">
+        <Link href="/" className="app-back-link group gap-1.5">
           <ChevronLeftIcon
             size={16}
             className="transition-transform group-hover:-translate-x-0.5"
@@ -64,9 +61,9 @@ export default async function AccountPage({ searchParams }: AccountPageProps) {
       </nav>
 
       {/* ── Profile Hero ── */}
-      <section className="relative isolate overflow-hidden rounded-2xl border border-stone-200/90 bg-white shadow-[0_10px_30px_-18px_rgba(0,0,0,0.25)] ring-1 ring-stone-100/80 sm:rounded-3xl dark:border-stone-800 dark:bg-stone-950 dark:ring-stone-800/60">
+      <section className="liquid-glass-strong relative isolate overflow-hidden rounded-[2rem] dark:border-stone-800 dark:bg-stone-950">
         {/* Hero banner */}
-        <div className={`relative h-32 bg-gradient-to-br ${gradient} md:h-36`}>
+        <div className={`relative h-28 bg-gradient-to-br ${gradient} opacity-90 md:h-32`}>
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.3),transparent_55%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.15),transparent_40%)]"
@@ -87,11 +84,11 @@ export default async function AccountPage({ searchParams }: AccountPageProps) {
               <img
                 src={avatarUrl}
                 alt="プロフィール画像"
-                className="h-24 w-24 rounded-2xl border-4 border-white object-cover shadow-lg dark:border-stone-950"
+                className="h-24 w-24 rounded-3xl border-4 border-white object-cover shadow-lg dark:border-stone-950"
               />
             ) : (
               <div
-                className={`flex h-24 w-24 items-center justify-center rounded-2xl border-4 border-white bg-gradient-to-br ${gradient} text-3xl font-extrabold text-white shadow-lg dark:border-stone-950`}
+                className={`flex h-24 w-24 items-center justify-center rounded-3xl border-4 border-white bg-gradient-to-br ${gradient} text-3xl font-extrabold text-white shadow-lg dark:border-stone-950`}
               >
                 {initial}
               </div>
@@ -100,7 +97,7 @@ export default async function AccountPage({ searchParams }: AccountPageProps) {
 
           <div className="mt-3 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
             <div className="min-w-0 flex-1">
-              <h1 className="truncate text-xl font-extrabold text-stone-900 dark:text-stone-100">
+              <h1 className="app-display-title truncate text-2xl text-stone-900 dark:text-stone-100">
                 {displayName}
               </h1>
               <p className="mt-0.5 truncate text-[13px] text-stone-500 dark:text-stone-400">

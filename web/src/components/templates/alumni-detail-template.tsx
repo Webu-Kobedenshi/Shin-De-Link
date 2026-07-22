@@ -174,13 +174,10 @@ export function AlumniDetailTemplate({
   }, [companyExperiences, selectedCompanyExperienceId]);
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-2xl px-3 py-4 sm:px-4 sm:py-6 md:px-6 md:py-10">
+    <main className="app-page mx-auto min-h-screen w-full max-w-2xl px-3 py-3 sm:px-4 sm:py-5 md:px-6 md:py-8">
       {/* ── Navigation ── */}
-      <nav className="mb-4 sm:mb-6">
-        <Link
-          href={returnHref}
-          className="group inline-flex items-center gap-1.5 text-[13px] font-medium text-stone-500 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
-        >
+      <nav className="mb-2 sm:mb-3">
+        <Link href={returnHref} className="app-back-link group gap-1.5">
           <ChevronLeftIcon
             size={16}
             className="transition-transform group-hover:-translate-x-0.5"
@@ -191,9 +188,9 @@ export function AlumniDetailTemplate({
       </nav>
 
       {/* ── Hero Section ── */}
-      <section className="relative isolate overflow-hidden rounded-2xl border border-stone-200/90 bg-white shadow-[0_10px_30px_-18px_rgba(0,0,0,0.25)] ring-1 ring-stone-100/80 sm:rounded-3xl dark:border-stone-800 dark:bg-stone-950 dark:ring-stone-800/60">
+      <section className="liquid-glass-strong relative isolate overflow-hidden rounded-[2rem] dark:border-stone-800 dark:bg-stone-950">
         {/* Hero banner */}
-        <div className={`relative h-36 bg-gradient-to-br ${gradient} md:h-40`}>
+        <div className={`relative h-32 bg-gradient-to-br ${gradient} opacity-90 md:h-36`}>
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.3),transparent_55%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.15),transparent_40%)]"
@@ -221,17 +218,17 @@ export function AlumniDetailTemplate({
               <img
                 src={alumni.avatarUrl}
                 alt={`${displayName}のプロフィール画像`}
-                className="h-24 w-24 rounded-2xl border-4 border-white object-cover shadow-lg sm:h-28 sm:w-28 dark:border-stone-950"
+                className="h-24 w-24 rounded-3xl border-4 border-white object-cover shadow-lg sm:h-28 sm:w-28 dark:border-stone-950"
               />
             ) : (
               <div
-                className={`flex h-24 w-24 items-center justify-center rounded-2xl border-4 border-white bg-gradient-to-br ${gradient} text-3xl font-extrabold text-white shadow-lg sm:h-28 sm:w-28 sm:text-4xl dark:border-stone-950`}
+                className={`flex h-24 w-24 items-center justify-center rounded-3xl border-4 border-white bg-gradient-to-br ${gradient} text-3xl font-extrabold text-white shadow-lg sm:h-28 sm:w-28 sm:text-4xl dark:border-stone-950`}
               >
                 {initial}
               </div>
             )}
             <div className="mb-1 min-w-0 flex-1 basis-[9rem] translate-y-4 sm:translate-y-0">
-              <h1 className="truncate text-xl font-extrabold text-stone-900 sm:text-2xl dark:text-stone-100">
+              <h1 className="app-display-title truncate text-2xl text-stone-900 sm:text-[1.7rem] dark:text-stone-100">
                 {displayName}
               </h1>
               <p className="mt-0.5 break-words text-[13px] leading-relaxed text-stone-500 dark:text-stone-400">
@@ -327,7 +324,7 @@ export function AlumniDetailTemplate({
       {/* ── Company Selection Experience ── */}
       <section
         id="selection-flow"
-        className="mt-4 scroll-mt-4 rounded-2xl border border-stone-200/90 bg-white p-4 shadow-[0_8px_24px_-18px_rgba(0,0,0,0.15)] sm:p-5 dark:border-stone-800/80 dark:bg-stone-900/40"
+        className="liquid-glass mt-4 scroll-mt-4 rounded-3xl p-4 sm:p-5 dark:border-stone-800/80 dark:bg-stone-900/70"
       >
         <div className="flex flex-col items-start gap-3 sm:flex-row sm:justify-between">
           <div>
@@ -567,7 +564,7 @@ export function AlumniDetailTemplate({
         <div className="mt-4 space-y-3">
           {/* スキルと武器 */}
           {alumni.skills.length > 0 || alumni.portfolioUrl ? (
-            <section className="rounded-2xl border border-stone-200/90 bg-white p-5 shadow-[0_8px_24px_-18px_rgba(0,0,0,0.15)] dark:border-stone-800/80 dark:bg-stone-900/40">
+            <section className="liquid-glass rounded-3xl p-5 dark:border-stone-800/80 dark:bg-stone-900/70">
               <div className="flex items-center gap-2">
                 <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-violet-100 text-sm dark:bg-violet-900/40">
                   ⚔️
@@ -606,7 +603,7 @@ export function AlumniDetailTemplate({
 
           {/* ガクチカ */}
           {alumni.gakuchika ? (
-            <section className="rounded-2xl border border-stone-200/90 bg-white p-5 shadow-[0_8px_24px_-18px_rgba(0,0,0,0.15)] dark:border-stone-800/80 dark:bg-stone-900/40">
+            <section className="liquid-glass rounded-3xl p-5 dark:border-stone-800/80 dark:bg-stone-900/70">
               <div className="flex items-center gap-2">
                 <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-100 text-sm dark:bg-amber-900/40">
                   🔥
@@ -623,7 +620,7 @@ export function AlumniDetailTemplate({
 
           {/* 学校のこと */}
           {alumni.usefulCoursework ? (
-            <section className="rounded-2xl border border-stone-200/90 bg-white p-5 shadow-[0_8px_24px_-18px_rgba(0,0,0,0.15)] dark:border-stone-800/80 dark:bg-stone-900/40">
+            <section className="liquid-glass rounded-3xl p-5 dark:border-stone-800/80 dark:bg-stone-900/70">
               <div className="flex items-center gap-2">
                 <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-100 text-sm dark:bg-blue-900/40">
                   📚

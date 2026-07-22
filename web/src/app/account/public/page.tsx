@@ -29,12 +29,9 @@ export default async function AccountPublicProfilePage() {
   }
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-2xl px-3 py-4 sm:px-4 sm:py-6 md:px-6 md:py-10">
-      <nav className="mb-4 sm:mb-6">
-        <Link
-          href="/"
-          className="group inline-flex items-center gap-1.5 text-[13px] font-medium text-stone-500 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
-        >
+    <main className="app-page mx-auto min-h-screen w-full max-w-2xl px-3 py-3 sm:px-4 sm:py-5 md:px-6 md:py-8">
+      <nav className="mb-2 sm:mb-3">
+        <Link href="/" className="app-back-link group gap-1.5">
           <ChevronLeftIcon
             size={16}
             className="transition-transform group-hover:-translate-x-0.5"
@@ -44,8 +41,9 @@ export default async function AccountPublicProfilePage() {
         </Link>
       </nav>
 
-      <section className="rounded-2xl border border-stone-200/90 bg-white p-4 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.25)] sm:rounded-3xl sm:p-6 dark:border-stone-800 dark:bg-stone-950">
-        <h1 className="text-xl font-extrabold text-stone-900 dark:text-stone-100">
+      <section className="liquid-glass-strong rounded-[2rem] p-4 sm:p-6 dark:border-stone-800 dark:bg-stone-950">
+        <p className="app-eyebrow">PUBLIC PROFILE</p>
+        <h1 className="app-display-title mt-2 text-2xl text-stone-900 dark:text-stone-100">
           公開プロフィール設定
         </h1>
         <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">

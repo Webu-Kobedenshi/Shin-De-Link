@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/atoms/skeleton";
 
 export function AlumniCardSkeleton() {
   return (
-    <article className="overflow-hidden rounded-3xl border border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-950">
+    <article className="overflow-hidden rounded-[1.6rem] border border-white/90 bg-white/76 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_10px_32px_rgba(49,46,129,0.06)] dark:border-stone-800 dark:bg-stone-950">
       <div className="relative h-24 overflow-hidden bg-gradient-to-br from-violet-200/70 via-sky-200/60 to-cyan-200/70 dark:from-violet-950/40 dark:via-sky-950/30 dark:to-cyan-950/40">
         <Skeleton className="absolute left-3 top-3 h-5 w-24 rounded-full bg-white/70 dark:bg-white/10" />
         <Skeleton className="absolute right-3 top-3 h-5 w-18 rounded-full bg-black/10 dark:bg-white/10" />
