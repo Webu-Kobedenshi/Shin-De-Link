@@ -91,8 +91,10 @@ https://<production-web-domain>/api/account/gmail/verify/callback
 pnpm prisma:seed:admin-emails
 ```
 
-本番では Fly.io 上で実行します。
+本番では Xserver 上で実行します。
 
 ```bash
-flyctl ssh console -C "cd /app/service && pnpm db:seed:admin-emails"
+ssh webu
+cd ~/apps/Webu-knowledge-base-obog
+docker compose -f compose.xserver.yml exec service pnpm db:seed:admin-emails
 ```

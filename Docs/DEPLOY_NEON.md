@@ -1,8 +1,8 @@
 # Neon Deploy
 
-本番 PostgreSQL を Neon で用意する手順です。
+Xserver 本番環境で使う Neon PostgreSQL を用意・接続する手順です。既存の Neon project を継続利用する場合、DB や branch を作り直す必要はありません。
 
-## Create Project
+## Create or Choose Project
 
 - PostgreSQL version: `16`
 - Region: API と近いリージョン
@@ -17,24 +17,27 @@ Neon の `Connect` から Direct 接続 URL を取得します。
 - `-pooler` が入っていない
 - `sslmode=require` が付いている
 
-## Set Fly.io Secret
+## Set Xserver Environment Variable
 
-```bash
-flyctl secrets set DATABASE_URL="<Neon Direct URL>"
+Xserver 上の `.env.xserver` に設定します。
+
+```env
+DATABASE_URL="<Neon Direct URL>"
 ```
 
 ## Migration
 
-本番 migration は Fly.io deploy 時に `release_command` で実行されます。
+Xserver ではコンテナ起動後に明示的に実行します。
 
 ```bash
-pnpm prisma migrate deploy
+docker compose -f compose.xserver.yml exec service pnpm prisma migrate status
+docker compose -f compose.xserver.yml exec service pnpm prisma migrate deploy
 ```
 
 ## Check
 
-- Fly.io deploy log で migration 成功を確認する
-- `https://<your-app>.fly.dev/graphql` が `400` を返す
+- `prisma migrate status` が up to date を返す
+- `docker compose -f compose.xserver.yml logs --tail=100 service` に起動エラーがない
 
 ## Security
 

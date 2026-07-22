@@ -43,15 +43,29 @@ Xserver 上では `compose.xserver.yml` で `caddy`、`web`、`service` の 3 �
 ### アクセス
 
 - Xserver に SSH ログインできる
-- SSH ユーザー: `webu`
+- SSH ユーザー: `webu_kd_xs`
 - 接続先 IP: `162.43.91.89`
 - サーバー上で Docker / Docker Compose を実行できる
 - 80 / 443 / 443 UDP が外部から到達できる
 
 ```bash
-ssh webu@162.43.91.89
+# ~/.ssh/config に以下を設定した場合
+ssh webu
+
+# config を使わない場合
+ssh -i ~/.ssh/xserver_webu.pem -o IdentitiesOnly=yes webu_kd_xs@162.43.91.89
 docker --version
 docker compose version
+```
+
+`~/.ssh/config` の例:
+
+```sshconfig
+Host webu
+  HostName 162.43.91.89
+  User webu_kd_xs
+  IdentityFile ~/.ssh/xserver_webu.pem
+  IdentitiesOnly yes
 ```
 
 Docker を実行できない場合は、まず Xserver 側で Docker 利用権限または Docker インストール状態を確認してください。
@@ -88,7 +102,7 @@ dig +short www.web-u.dev
 - Neon PostgreSQL の Direct connection URL
 - Cloudflare R2 bucket と S3 API token
 - Google Cloud Console の OAuth Client
-- 管理者として seed するメールアドレス
+- 必要に応じて管理者として seed するメールアドレス
 
 関連ドキュメント:
 
@@ -116,6 +130,8 @@ https://web-u.dev/api/account/gmail/verify/callback
 
 設定漏れがあると、通常ログインまたは卒業後ログイン用 Gmail 紐づけが失敗します。
 
+Google Auth Platform の同意画面でも `web-u.dev` を Authorized domains に追加します。一般ユーザーに公開する場合は、Audience を本番公開にします。
+
 ## Cloudflare R2 設定
 
 R2 bucket の CORS に `https://web-u.dev` を含めます。
@@ -131,6 +147,8 @@ R2 bucket の CORS に `https://web-u.dev` を含めます。
   }
 ]
 ```
+
+`PUBLIC_ENDPOINT` は独自ドメインを推奨します。初回公開時は既存 bucket の Public Development URL（`https://pub-...r2.dev`）も使えますが、レート制限があるため、運用開始後は独自ドメインへ切り替えます。
 
 ## 環境変数
 
@@ -150,16 +168,16 @@ vi .env.xserver
 | `NEXTAUTH_SECRET` | NextAuth secret | 強いランダム文字列 |
 | `AUTH_JWT_SECRET` | web-service 間 JWT secret | `web` と `service` で同じ値になる。`.env.xserver` は両方のコンテナに渡される |
 | `AUTH_ALLOWED_DOMAINS` | ログイン許可ドメイン | 例: `st.kobedenshi.ac.jp,gmail.com` |
-| `ADMIN_SEED_EMAILS` | 管理者 seed 対象 | カンマ区切り |
+| `ADMIN_SEED_EMAILS` | 管理者 seed 対象 | 任意。カンマ区切り。未設定なら seed しない |
 | `GRAPHQL_ENDPOINT` | web から service への GraphQL URL | Compose 内では `http://service:4000/graphql` |
 | `GOOGLE_CLIENT_ID` | Google OAuth client ID | Google Cloud Console から取得 |
 | `GOOGLE_CLIENT_SECRET` | Google OAuth client secret | Google Cloud Console から取得 |
 | `DATABASE_URL` | Neon PostgreSQL URL | Direct URL、`sslmode=require` 必須 |
 | `PORT` | service port | Compose で `4000` を指定 |
 | `CORS_ORIGINS` | service CORS 許可 origin | `https://web-u.dev` |
-| `ENDPOINT` | R2 S3 endpoint | 例: `https://<account-id>.r2.cloudflarestorage.com` |
+| `ENDPOINT` | R2 S3 endpoint | 例: `https://<account-id>.r2.cloudflarestorage.com`。bucket 名を URL に含めない |
 | `PUBLIC_UPLOAD_ENDPOINT` | ブラウザ PUT 用 endpoint | R2 S3 endpoint |
-| `PUBLIC_ENDPOINT` | 画像公開 URL | 公開配信用 domain |
+| `PUBLIC_ENDPOINT` | 画像公開 URL | 独自の公開配信用 domain を推奨。初回は `https://pub-...r2.dev` も可 |
 | `ACCESS_KEY` | R2 access key ID | Git に書かない |
 | `SECRET_KEY` | R2 secret access key | Git に書かない |
 | `BUCKET_NAME` | R2 bucket name | 例: `webu-portal` |
@@ -173,17 +191,17 @@ openssl rand -base64 32
 `.env.xserver` の構文確認:
 
 ```bash
-XSERVER_ENV_FILE=.env.xserver docker compose -f compose.xserver.yml config
+XSERVER_ENV_FILE=.env.xserver docker compose -f compose.xserver.yml config --quiet
 ```
 
-このコマンドは環境変数を展開して表示するため、出力をチャットや Issue に貼らないでください。
+`--quiet` は構文だけを確認し、secret を表示しません。
 
 ## 初回デプロイ
 
 ### 1. サーバーにログインする
 
 ```bash
-ssh webu@162.43.91.89
+ssh webu
 ```
 
 初回ログイン直後で初期パスワードのままなら変更します。
@@ -239,6 +257,17 @@ XSERVER_ENV_FILE=.env.xserver docker compose -f compose.xserver.yml config
 docker compose -f compose.xserver.yml up -d --build
 ```
 
+初回 build は image の取得と Next.js の production build を行うため、高い CPU load になり、SSH が一時的に応答しにくくなることがあります。完了前に同じ `up -d --build` を再実行したり、process を停止したりしないでください。
+
+状態は以下で確認します。
+
+```bash
+docker compose -f compose.xserver.yml ps
+pgrep -af 'docker compose.*up -d --build|docker-buildx bake|next build'
+```
+
+SSH がタイムアウトする場合は、Xserver VPS パネルのシリアルコンソールで `uptime`、`free -h`、`df -h` を確認します。
+
 状態確認:
 
 ```bash
@@ -249,16 +278,13 @@ docker compose -f compose.xserver.yml logs --tail=100 web service caddy
 ### 5. DB migration を適用する
 
 ```bash
+docker compose -f compose.xserver.yml exec service pnpm prisma migrate status
 docker compose -f compose.xserver.yml exec service pnpm prisma migrate deploy
 ```
 
-状態確認:
-
-```bash
-docker compose -f compose.xserver.yml exec service pnpm prisma migrate status
-```
-
 ### 6. 管理者メールを seed する
+
+`ADMIN_SEED_EMAILS` を設定した場合だけ実行します。
 
 ```bash
 docker compose -f compose.xserver.yml exec service pnpm db:seed:admin-emails
@@ -289,7 +315,7 @@ find service/prisma/migrations -maxdepth 2 -name migration.sql
 ### 2. サーバーで最新 main を取得する
 
 ```bash
-ssh webu@162.43.91.89
+ssh webu
 cd ~/apps/Webu-knowledge-base-obog
 git fetch origin
 git checkout main
@@ -319,10 +345,13 @@ docker compose -f compose.xserver.yml up -d --build
 ### 4. migration を適用する
 
 ```bash
+docker compose -f compose.xserver.yml exec service pnpm prisma migrate status
 docker compose -f compose.xserver.yml exec service pnpm prisma migrate deploy
 ```
 
 ### 5. 必要に応じて管理者 seed を再実行する
+
+`ADMIN_SEED_EMAILS` を設定または変更した場合だけ実行します。
 
 ```bash
 docker compose -f compose.xserver.yml exec service pnpm db:seed:admin-emails
@@ -339,8 +368,8 @@ curl -I https://www.web-u.dev
 
 期待値:
 
-- `https://web-u.dev` が `200` 系を返す
-- `https://www.web-u.dev` が `https://web-u.dev` に redirect される
+- 未ログイン時の `https://web-u.dev` は `/login` への `307` redirect を返す（`curl -IL https://web-u.dev` の最終応答は `200` 系）
+- `https://www.web-u.dev` は `https://web-u.dev` に `301` redirect される
 - `web` / `service` / `caddy` が `Up` になる
 - `service` logs に migration 後の起動エラーがない
 
@@ -444,6 +473,10 @@ https://web-u.dev/api/account/gmail/verify/callback
 docker compose -f compose.xserver.yml logs --tail=200 web
 ```
 
+### `Failed to find Server Action` が出る
+
+前のデプロイを開いていたブラウザからの古い Server Action request で発生することがあります。ブラウザを強制再読み込みするか、シークレットウィンドウで開き直します。起動ログと HTTP 応答が正常なら、このメッセージだけでは起動失敗ではありません。
+
 ### GraphQL 呼び出しが失敗する
 
 確認点:
@@ -481,6 +514,7 @@ docker compose -f compose.xserver.yml logs --tail=200 service
 - R2 CORS に `https://web-u.dev` が入っている
 - `PUBLIC_UPLOAD_ENDPOINT` がブラウザから到達できる R2 S3 endpoint
 - `PUBLIC_ENDPOINT` が公開配信用 URL
+- `ENDPOINT` / `PUBLIC_UPLOAD_ENDPOINT` に bucket 名を重ねて含めていない
 - `ACCESS_KEY` / `SECRET_KEY` / `BUCKET_NAME` が正しい
 
 ログ:
@@ -503,6 +537,8 @@ Caddy は自動で証明書を取得します。
 dig +short web-u.dev
 docker compose -f compose.xserver.yml logs --tail=200 caddy
 ```
+
+`certificate obtained successfully` が出れば、Caddy による Let's Encrypt 証明書取得は成功です。
 
 ## 定期メンテナンス
 

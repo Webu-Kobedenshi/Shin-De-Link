@@ -5,7 +5,7 @@
 ## Bucket
 
 - Bucket name: `webu-portal`
-- Public access は配信用ドメインに合わせて設定する
+- Public access は配信用ドメインに合わせて設定する。独自ドメインを推奨するが、初回公開時は R2 の Public Development URL（`https://pub-...r2.dev`）も使用できる
 
 ## API Token
 
@@ -21,16 +21,15 @@ S3 Endpoint
 
 ## Environment Variables
 
-Fly.io の service に設定します。
+Xserver 上の `.env.xserver` に設定します。`ENDPOINT` と `PUBLIC_UPLOAD_ENDPOINT` には S3 API のホスト名だけを指定し、bucket 名を URL に含めません。
 
-```bash
-flyctl secrets set \
-  ENDPOINT="https://<account-id>.r2.cloudflarestorage.com" \
-  PUBLIC_UPLOAD_ENDPOINT="https://<account-id>.r2.cloudflarestorage.com" \
-  PUBLIC_ENDPOINT="https://<your-r2-public-domain>" \
-  ACCESS_KEY="<r2-access-key-id>" \
-  SECRET_KEY="<r2-secret-access-key>" \
-  BUCKET_NAME="webu-portal"
+```env
+ENDPOINT="https://<account-id>.r2.cloudflarestorage.com"
+PUBLIC_UPLOAD_ENDPOINT="https://<account-id>.r2.cloudflarestorage.com"
+PUBLIC_ENDPOINT="https://<your-r2-public-domain>"
+ACCESS_KEY="<r2-access-key-id>"
+SECRET_KEY="<r2-secret-access-key>"
+BUCKET_NAME="webu-portal"
 ```
 
 ## CORS
@@ -51,7 +50,7 @@ flyctl secrets set \
 
 ## Check
 
-1. service を deploy する
+1. Xserver の `service` を起動する
 2. `/account` からアバターをアップロードする
 3. 保存された画像 URL が表示できる
 

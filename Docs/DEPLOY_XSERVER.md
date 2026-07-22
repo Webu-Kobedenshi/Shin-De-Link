@@ -6,8 +6,8 @@
 
 ## Prerequisites
 
-- xサーバーの `webu` アカウントで SSH ログインできる
-- Docker / Docker Compose を `webu` アカウントで実行できる
+- xサーバーの `webu_kd_xs` アカウントで SSH ログインできる（`~/.ssh/config` 設定後は `ssh webu`）
+- Docker / Docker Compose を `webu_kd_xs` アカウントで実行できる
 - 80 番と 443 番ポートが外部から到達できる
 - `web-u.dev` と `www.web-u.dev` の A レコードが `162.43.91.89` を向いている
 - Neon / Cloudflare R2 / Google OAuth の本番用 secret を確認できる
@@ -49,7 +49,7 @@ cp .env.xserver.example .env.xserver
 ```text
 NEXTAUTH_SECRET
 AUTH_JWT_SECRET
-ADMIN_SEED_EMAILS
+ADMIN_SEED_EMAILS（管理者を seed する場合のみ）
 GOOGLE_CLIENT_ID
 GOOGLE_CLIENT_SECRET
 DATABASE_URL
@@ -62,6 +62,8 @@ BUCKET_NAME
 ```
 
 `AUTH_JWT_SECRET` は `web` と `service` で同じ値を使います。
+
+`ENDPOINT` と `PUBLIC_UPLOAD_ENDPOINT` には R2 S3 API のホスト名だけを設定し、bucket 名は URL に含めません。`PUBLIC_ENDPOINT` は独自ドメインを推奨しますが、初回公開時は R2 の Public Development URL（`https://pub-...r2.dev`）も使えます。
 
 ## Google OAuth
 
@@ -98,12 +100,20 @@ R2 bucket の CORS に `https://web-u.dev` を追加します。
 
 ## Deploy
 
-初回ログイン後、まず初期パスワードを変更します。
+初回はリポジトリを配置してから、最新の `main` を取得します。
 
 ```bash
-ssh webu@162.43.91.89
-passwd
+ssh webu
+mkdir -p ~/apps
+cd ~/apps
+git clone https://github.com/Webu-Kobedenshi/Webu-knowledge-base-obog.git
+cd ~/apps/Webu-knowledge-base-obog
+git fetch origin
+git checkout main
+git pull --ff-only origin main
 ```
+
+すでに clone 済みの場合は `git clone` を省略し、`cd ~/apps/Webu-knowledge-base-obog` から実行します。
 
 リポジトリを配置し、環境変数を設定したら起動します。
 
@@ -111,19 +121,22 @@ passwd
 docker compose -f compose.xserver.yml up -d --build
 ```
 
-検証時だけテンプレートで compose の構文を確認できます。
+入力済みの本番環境変数で compose の構文を確認します。
 
 ```bash
-XSERVER_ENV_FILE=.env.xserver.example docker compose -f compose.xserver.yml config
+XSERVER_ENV_FILE=.env.xserver docker compose -f compose.xserver.yml config --quiet
 ```
+
+初回 build は高負荷になるため、`docker compose ... up -d --build` を重複実行しません。SSH が一時的に応答しない場合は、Xserver VPS パネルのシリアルコンソールから状態を確認します。
 
 migration を適用します。
 
 ```bash
+docker compose -f compose.xserver.yml exec service pnpm prisma migrate status
 docker compose -f compose.xserver.yml exec service pnpm prisma migrate deploy
 ```
 
-管理者メールを seed します。
+`ADMIN_SEED_EMAILS` を設定した場合のみ、管理者メールを seed します。
 
 ```bash
 docker compose -f compose.xserver.yml exec service pnpm db:seed:admin-emails
@@ -137,6 +150,8 @@ docker compose -f compose.xserver.yml logs -f web service caddy
 curl -I https://web-u.dev
 curl -I https://www.web-u.dev
 ```
+
+未ログイン時の `https://web-u.dev` は `/login` への `307` redirect、`https://www.web-u.dev` は `https://web-u.dev` への `301` redirect が期待値です。
 
 ブラウザでは以下を確認します。
 

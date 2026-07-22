@@ -15,10 +15,12 @@ shiki@st.kobedenshi.ac.jp
 
 ## Command
 
-Fly.io の本番 service 上で、`ADMIN_SEED_EMAILS` を一時環境変数として渡して seed を実行します。
+Xserver の本番 service 上で、`ADMIN_SEED_EMAILS` を一時環境変数として渡して seed を実行します。
 
 ```bash
-flyctl ssh console --app webu-portal-service-rion0910 -C 'sh -lc '\''cd /app/service && ADMIN_SEED_EMAILS="shiki@st.kobedenshi.ac.jp" pnpm db:seed:admin-emails'\'''
+ssh webu
+cd ~/apps/Webu-knowledge-base-obog
+docker compose -f compose.xserver.yml exec -T -e ADMIN_SEED_EMAILS="shiki@st.kobedenshi.ac.jp" service pnpm db:seed:admin-emails
 ```
 
 ## Expected Output
@@ -34,12 +36,4 @@ Admin email seed completed: 1 admin emails ensured.
 - 既存の本番 secret `ADMIN_SEED_EMAILS` は変更しません。一時環境変数で実行するため、既存管理者メールの設定を上書きしません。
 - 追加後、対象ユーザーはログアウトして再ログインすると `ADMIN` として扱われます。
 - 教職員形式の学校メールは、`AdminEmail` に登録されている場合のみログイン可能な管理者として扱われます。
-
-## If Fly.io Is Not Logged In
-
-`No access token available` が出る場合は、先にログインします。
-
-```bash
-flyctl auth login
-```
 
